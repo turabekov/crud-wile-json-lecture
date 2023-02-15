@@ -8,7 +8,7 @@ type StorageI interface {
 }
 
 type UserRepoI interface {
-	Create(*models.CreateUser) (int, error)
+	Create(*models.CreateUser) (string, error)
 	GetUserById(req *models.UserPrimaryKey) (models.User, error)
 	GetList(req *models.GetListRequest) (*models.GetListResponse, error)
 	UpdateUser(req *models.UpdateUser) (models.User, error)

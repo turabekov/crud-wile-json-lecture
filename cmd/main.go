@@ -22,19 +22,19 @@ func main() {
 	c := controller.NewController(&cfg, jsondb)
 
 	// Create User
-	// id, err := c.CreateUser(
-	// 	&models.CreateUser{
-	// 		Name:    "Abduqodir",
-	// 		Surname: "Musayev",
-	// 	},
-	// )
+	id, err := c.CreateUser(
+		&models.CreateUser{
+			Name:    "Khumoyun",
+			Surname: "Turaekov",
+		},
+	)
 
-	// if err != nil {
-	// 	log.Println("error while CreateUser:", err.Error())
-	// 	return
-	// }
+	if err != nil {
+		log.Println("error while CreateUser:", err.Error())
+		return
+	}
 
-	// fmt.Println(id)
+	fmt.Println(id)
 
 	// GetList of user
 	res, err := c.GetList(
@@ -50,39 +50,39 @@ func main() {
 	fmt.Println(res.Users)
 
 	// Get user by id
-	user, err := c.GetUserByIdController(
-		&models.UserPrimaryKey{
-			Id: 5,
-		},
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Get by id", user)
+	// user, err := c.GetUserByIdController(
+	// 	&models.UserPrimaryKey{
+	// 		Id: 5,
+	// 	},
+	// )
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Get by id", user)
 
 	// update user
-	user, err = c.UpdateUserController(
-		&models.UpdateUser{
-			Id:      7,
-			Name:    "Wayne",
-			Surname: "Rooney",
-		},
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("updated user", user)
+	// user, err := c.UpdateUserController(
+	// 	&models.UpdateUser{
+	// 		Id:      "",
+	// 		Name:    "Wayne",
+	// 		Surname: "Rooney",
+	// 	},
+	// )
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("updated user", user)
 
 	// Delete user
-	user, err = c.DeleteUserController(
-		&models.UserPrimaryKey{
-			Id: 18,
-		},
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("deleted user", user)
+	// user, err = c.DeleteUserController(
+	// 	&models.UserPrimaryKey{
+	// 		Id: "18",
+	// 	},
+	// )
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("deleted user", user)
 
 }
 

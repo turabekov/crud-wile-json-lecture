@@ -1,87 +1,12 @@
 [
    {
-      "id": 1,
+      "id": "b52de78a-7098-4fdd-8952-26be9785defa",
       "name": "Abduqodir",
       "surname": "Musayev"
    },
    {
-      "id": 2,
+      "id": "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
       "name": "Khumoyun",
-      "surname": "Turabekov"
-   },
-   {
-      "id": 3,
-      "name": "Shokhrukh",
-      "surname": "Musayev"
-   },
-   {
-      "id": 4,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 5,
-      "name": "Mirazam",
-      "surname": "Muzaffarov"
-   },
-   {
-      "id": 6,
-      "name": "Marcus",
-      "surname": "Rashford"
-   },
-   {
-      "id": 7,
-      "name": "Wayne",
-      "surname": "Rooney"
-   },
-   {
-      "id": 8,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 9,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 10,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 11,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 12,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 13,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 14,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 15,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 16,
-      "name": "Abduqodir",
-      "surname": "Musayev"
-   },
-   {
-      "id": 17,
-      "name": "Abduqodir",
-      "surname": "Musayev"
+      "surname": "Turaekov"
    }
 ]
