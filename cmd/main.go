@@ -7,19 +7,19 @@ import (
 	"app/config"
 	"app/controller"
 	"app/models"
-	"app/storage"
+	"app/storage/jsondb"
 )
 
 func main() {
 
 	cfg := config.Load()
 
-	store, err := storage.NewFileJson(&cfg)
+	jsondb, err := jsondb.NewFileJson(&cfg)
 	if err != nil {
 		panic("error while connect to json file: " + err.Error())
 	}
 
-	c := controller.NewController(&cfg, store)
+	c := controller.NewController(&cfg, jsondb)
 
 	// Create User
 	// id, err := c.CreateUser(
@@ -76,7 +76,7 @@ func main() {
 	// Delete user
 	user, err = c.DeleteUserController(
 		&models.UserPrimaryKey{
-			Id: 19,
+			Id: 18,
 		},
 	)
 	if err != nil {
