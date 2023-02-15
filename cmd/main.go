@@ -22,32 +22,32 @@ func main() {
 	c := controller.NewController(&cfg, jsondb)
 
 	// Create User
-	id, err := c.CreateUser(
-		&models.CreateUser{
-			Name:    "Khumoyun",
-			Surname: "Turaekov",
-		},
-	)
+	// id, err := c.CreateUser(
+	// 	&models.CreateUser{
+	// 		Name:    "Khumoyun",
+	// 		Surname: "Turaekov",
+	// 	},
+	// )
 
-	if err != nil {
-		log.Println("error while CreateUser:", err.Error())
-		return
-	}
+	// if err != nil {
+	// 	log.Println("error while CreateUser:", err.Error())
+	// 	return
+	// }
 
-	fmt.Println(id)
+	// fmt.Println(id)
 
 	// GetList of user
-	res, err := c.GetList(
-		&models.GetListRequest{
-			Offset: 0,
-			Limit:  100,
-		},
-	)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// res, err := c.GetList(
+	// 	&models.GetListRequest{
+	// 		Offset: 0,
+	// 		Limit:  100,
+	// 	},
+	// )
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
 
-	fmt.Println(res.Users)
+	// fmt.Println(res.Users)
 
 	// Get user by id
 	// user, err := c.GetUserByIdController(
@@ -84,9 +84,53 @@ func main() {
 	// }
 	// fmt.Println("deleted user", user)
 
-}
+	// ==========Product========================================================================================================================
+	// Create Product
+	// id, err := c.CreateProduct(&models.CreateProduct{
+	// 	Name:  "Sprite",
+	// 	Price: 10000,
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println(id)
 
-// GetByPkey() Done
-// GetList() Done
-// Update(user)
-// Delete()
+	// Get all products
+	products, err := c.GetListProducts(&models.GetListProductRequest{
+		Offset: 0,
+		Limit:  2,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Get all products", products.Products)
+
+	// Get one product
+	p, e := c.GetProductByIdController(&models.ProductPrimaryKey{
+		Id: "48b934e9-ed15-4779-8d0d-e45c61c7a089",
+	})
+	if e != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Get one by id", p)
+
+	// Update products
+	product, err := c.UpdateProductController(&models.UpdateProduct{
+		Id:    "ec529cd6-dbb8-4982-a984-017b6a042378",
+		Name:  "Dena",
+		Price: 15000,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Updated product", product)
+	// Delete product
+	product, err = c.DeleteProductController(&models.ProductPrimaryKey{
+		Id: "cba2bbf9-4893-409b-be52-20ad631330fe",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Deleted product", product)
+
+}

@@ -7,7 +7,8 @@ import (
 )
 
 type Store struct {
-	user *userRepo
+	user    *userRepo
+	product *productRepo
 }
 
 func NewFileJson(cfg *config.Config) (storage.StorageI, error) {
@@ -17,8 +18,14 @@ func NewFileJson(cfg *config.Config) (storage.StorageI, error) {
 		return nil, err
 	}
 
+	productFile, err := os.Open(cfg.Path + cfg.ProductFileName)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Store{
-		user: NewUserRepo(cfg.Path+cfg.UserFileName, userFile),
+		user:    NewUserRepo(cfg.Path+cfg.UserFileName, userFile),
+		product: NewProductRepo(cfg.Path+cfg.ProductFileName, productFile),
 	}, nil
 }
 
@@ -28,4 +35,8 @@ func (s *Store) CloseDB() {
 
 func (s *Store) User() storage.UserRepoI {
 	return s.user
+}
+
+func (s *Store) Product() storage.ProductRepoI {
+	return s.product
 }

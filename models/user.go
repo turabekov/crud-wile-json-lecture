@@ -10,13 +10,13 @@ type CreateUser struct {
 }
 
 type User struct {
-	Id      string    `json:"id"`
+	Id      string `json:"id"`
 	Name    string `json:"name"`
 	Surname string `json:"surname"`
 }
 
 type UpdateUser struct {
-	Id      string    `json:"id"`
+	Id      string `json:"id"`
 	Name    string `json:"name"`
 	Surname string `json:"urname"`
 }

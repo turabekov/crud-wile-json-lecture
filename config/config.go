@@ -3,7 +3,8 @@ package config
 type Config struct {
 	Path string
 
-	UserFileName string
+	UserFileName    string
+	ProductFileName string
 }
 
 func Load() Config {
@@ -12,6 +13,7 @@ func Load() Config {
 
 	cfg.Path = "./data"
 	cfg.UserFileName = "/customer.json"
+	cfg.ProductFileName = "/products.json"
 
 	return cfg
 }

@@ -5,6 +5,7 @@ import "app/models"
 type StorageI interface {
 	CloseDB()
 	User() UserRepoI
+	Product() ProductRepoI
 }
 
 type UserRepoI interface {
@@ -13,4 +14,12 @@ type UserRepoI interface {
 	GetList(req *models.GetListRequest) (*models.GetListResponse, error)
 	UpdateUser(req *models.UpdateUser) (models.User, error)
 	DeleteUser(req *models.UserPrimaryKey) (models.User, error)
+}
+
+type ProductRepoI interface {
+	CreateProduct(req *models.CreateProduct) (id string, err error)
+	GetListProduct(req *models.GetListProductRequest) (*models.GetListProductResponse, error)
+	GetProductById(req *models.ProductPrimaryKey) (models.Product, error)
+	UpdateProduct(req *models.UpdateProduct) (models.Product, error)
+	DeleteProduct(req *models.ProductPrimaryKey) (models.Product, error)
 }
