@@ -106,7 +106,7 @@ func (u *productRepo) GetProductById(req *models.ProductPrimaryKey) (models.Prod
 		}
 	}
 
-	return models.Product{}, errors.New("user not found")
+	return models.Product{}, errors.New("product not found")
 }
 
 // Update user by id

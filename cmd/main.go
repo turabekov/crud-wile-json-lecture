@@ -1,13 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"log"
-
 	"app/config"
 	"app/controller"
 	"app/models"
 	"app/storage/jsondb"
+	"fmt"
+	"log"
 )
 
 func main() {
@@ -87,8 +86,8 @@ func main() {
 	// ==========Product========================================================================================================================
 	// Create Product
 	// id, err := c.CreateProduct(&models.CreateProduct{
-	// 	Name:  "Sprite",
-	// 	Price: 10000,
+	// 	Name:  "Mors",
+	// 	Price: 8000,
 	// })
 	// if err != nil {
 	// 	log.Fatal(err)
@@ -96,41 +95,82 @@ func main() {
 	// fmt.Println(id)
 
 	// Get all products
-	products, err := c.GetListProducts(&models.GetListProductRequest{
-		Offset: 0,
-		Limit:  2,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Get all products", products.Products)
+	// products, err := c.GetListProducts(&models.GetListProductRequest{
+	// 	Offset: 0,
+	// 	Limit:  2,
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Get all products", products.Products)
 
 	// Get one product
-	p, e := c.GetProductByIdController(&models.ProductPrimaryKey{
-		Id: "48b934e9-ed15-4779-8d0d-e45c61c7a089",
-	})
-	if e != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Get one by id", p)
+	// p, e := c.GetProductByIdController(&models.ProductPrimaryKey{
+	// 	Id: "48b934e9-ed15-4779-8d0d-e45c61c7a089",
+	// })
+	// if e != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Get one by id", p)
 
 	// Update products
-	product, err := c.UpdateProductController(&models.UpdateProduct{
-		Id:    "ec529cd6-dbb8-4982-a984-017b6a042378",
-		Name:  "Dena",
-		Price: 15000,
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Updated product", product)
+	// product, err := c.UpdateProductController(&models.UpdateProduct{
+	// 	Id:    "ec529cd6-dbb8-4982-a984-017b6a042378",
+	// 	Name:  "Dena",
+	// 	Price: 15000,
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Updated product", product)
 	// Delete product
-	product, err = c.DeleteProductController(&models.ProductPrimaryKey{
-		Id: "cba2bbf9-4893-409b-be52-20ad631330fe",
+	// product, err = c.DeleteProductController(&models.ProductPrimaryKey{
+	// 	Id: "cba2bbf9-4893-409b-be52-20ad631330fe",
+	// })
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// fmt.Println("Deleted product", product)
+
+	// ==========Shop Cart====================================================================================================================================
+
+	// Add data to shop cart
+	// sh, e := c.AddShopCart(&models.AddShopCart{
+	// 	ProductId: "ec529cd6-dbb8-4982-a984-017b6a042378",
+	// 	UserId:    "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
+	// 	Count:     6,
+	// })
+	// if e != nil {
+	// 	log.Fatal(e)
+	// }
+	// fmt.Println("Shop cart added", sh)
+
+	// Remove shop cart
+	// p, e := c.RemoveShopCart(&models.RemoveShopCart{
+	// 	ProductId: "ec529cd6-dbb8-4982-a984-017b6a042378",
+	// 	UserId:    "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
+	// })
+	// if e != nil {
+	// 	log.Fatal(e)
+	// }
+	// fmt.Println("Shop cart removed", p)
+
+	// get current user shopcarts
+	// ps, e := c.GetUserShopCarts(&models.UserPrimaryKey{
+	// 	Id: "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
+	// })
+	// if e != nil {
+	// 	log.Fatal(e)
+	// }
+	// fmt.Println("Shop carts", ps)
+
+	// Calculate total price in current user cart
+	total, e := c.CalcTotalPrice(models.UserPrimaryKey{
+		Id: "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
 	})
-	if err != nil {
-		log.Fatal(err)
+	if e != nil {
+		log.Fatal(e)
 	}
-	fmt.Println("Deleted product", product)
+	fmt.Println("Total price:", total)
 
 }
