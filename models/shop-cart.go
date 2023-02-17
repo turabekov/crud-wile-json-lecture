@@ -27,6 +27,11 @@ type UserProductIds struct {
 	UserId    string `json:"user_id"`
 }
 
+type Discount struct {
+	Status string  `json:"status"`
+	Amount float64 `json:"amount"`
+}
+
 // type GetListShopCartRequest struct {
 // 	Offset int `json:"offset"`
 // 	Limit  int `json:"limit"`

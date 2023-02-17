@@ -20,6 +20,11 @@ func main() {
 
 	c := controller.NewController(&cfg, jsondb)
 
+	shopCart(c)
+
+}
+
+func User(c *controller.Controller) {
 	// Create User
 	// id, err := c.CreateUser(
 	// 	&models.CreateUser{
@@ -83,6 +88,9 @@ func main() {
 	// }
 	// fmt.Println("deleted user", user)
 
+}
+
+func Product(c *controller.Controller) {
 	// ==========Product========================================================================================================================
 	// Create Product
 	// id, err := c.CreateProduct(&models.CreateProduct{
@@ -132,6 +140,9 @@ func main() {
 	// }
 	// fmt.Println("Deleted product", product)
 
+}
+
+func shopCart(c *controller.Controller) {
 	// ==========Shop Cart====================================================================================================================================
 
 	// Add data to shop cart
@@ -167,10 +178,12 @@ func main() {
 	// Calculate total price in current user cart
 	total, e := c.CalcTotalPrice(models.UserPrimaryKey{
 		Id: "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
+	}, models.Discount{
+		Status: "percent",
+		Amount: 9,
 	})
 	if e != nil {
 		log.Fatal(e)
 	}
 	fmt.Println("Total price:", total)
-
 }
