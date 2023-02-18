@@ -29,4 +29,5 @@ type ShopCartRepoI interface {
 	AddShopCart(req *models.AddShopCart) (models.ShopCart, error)
 	RemoveShopCart(req *models.RemoveShopCart) (models.ShopCart, error)
 	GetUserShopCarts(req *models.UserPrimaryKey) ([]models.ShopCart, error)
+	UpdateShopCart(cart models.ShopCart) (models.ShopCart, error)
 }

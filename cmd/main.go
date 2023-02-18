@@ -20,27 +20,47 @@ func main() {
 
 	c := controller.NewController(&cfg, jsondb)
 
-	shopCart(c)
+	// User(c)
+	// Product(c)
+	// ShopCart(c)
 
+	userID := "c6772cfd-f356-499d-a03b-75e76630b719"
+
+	total, e := c.CalcTotalPrice(models.CalculateShop{
+		UserID:         userID,
+		Discount:       0,
+		DiscountStatus: "precent",
+	})
+	if e != nil {
+		log.Fatal(e)
+	}
+
+	fmt.Println("Total price:", total)
+
+	err = c.WithdrawUserBalance(userID, total)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func User(c *controller.Controller) {
-	// Create User
-	// id, err := c.CreateUser(
-	// 	&models.CreateUser{
-	// 		Name:    "Khumoyun",
-	// 		Surname: "Turaekov",
-	// 	},
-	// )
 
-	// if err != nil {
-	// 	log.Println("error while CreateUser:", err.Error())
-	// 	return
-	// }
+	id, err := c.CreateUser(
+		&models.CreateUser{
+			Name:    "Khumoyun",
+			Surname: "Turaekov",
+			Balance: 500_000,
+		},
+	)
 
-	// fmt.Println(id)
+	if err != nil {
+		log.Println("error while CreateUser:", err.Error())
+		return
+	}
 
-	// GetList of user
+	fmt.Println(id)
+
+	// // GetList of user
 	// res, err := c.GetList(
 	// 	&models.GetListRequest{
 	// 		Offset: 0,
@@ -53,10 +73,10 @@ func User(c *controller.Controller) {
 
 	// fmt.Println(res.Users)
 
-	// Get user by id
+	// // Get user by id
 	// user, err := c.GetUserByIdController(
 	// 	&models.UserPrimaryKey{
-	// 		Id: 5,
+	// 		Id: "5",
 	// 	},
 	// )
 	// if err != nil {
@@ -64,8 +84,8 @@ func User(c *controller.Controller) {
 	// }
 	// fmt.Println("Get by id", user)
 
-	// update user
-	// user, err := c.UpdateUserController(
+	// // update user
+	// user, err = c.UpdateUserController(
 	// 	&models.UpdateUser{
 	// 		Id:      "",
 	// 		Name:    "Wayne",
@@ -77,7 +97,7 @@ func User(c *controller.Controller) {
 	// }
 	// fmt.Println("updated user", user)
 
-	// Delete user
+	// // Delete user
 	// user, err = c.DeleteUserController(
 	// 	&models.UserPrimaryKey{
 	// 		Id: "18",
@@ -87,10 +107,10 @@ func User(c *controller.Controller) {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Println("deleted user", user)
-
 }
 
 func Product(c *controller.Controller) {
+
 	// ==========Product========================================================================================================================
 	// Create Product
 	// id, err := c.CreateProduct(&models.CreateProduct{
@@ -113,13 +133,13 @@ func Product(c *controller.Controller) {
 	// fmt.Println("Get all products", products.Products)
 
 	// Get one product
-	// p, e := c.GetProductByIdController(&models.ProductPrimaryKey{
-	// 	Id: "48b934e9-ed15-4779-8d0d-e45c61c7a089",
-	// })
-	// if e != nil {
-	// 	log.Fatal(err)
-	// }
-	// fmt.Println("Get one by id", p)
+	product, err := c.GetProductByIdController(&models.ProductPrimaryKey{
+		Id: "48b934e9-ed15-4779-8d0d-e45c61c7a089",
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Get one by id", product)
 
 	// Update products
 	// product, err := c.UpdateProductController(&models.UpdateProduct{
@@ -131,6 +151,7 @@ func Product(c *controller.Controller) {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Println("Updated product", product)
+
 	// Delete product
 	// product, err = c.DeleteProductController(&models.ProductPrimaryKey{
 	// 	Id: "cba2bbf9-4893-409b-be52-20ad631330fe",
@@ -139,24 +160,24 @@ func Product(c *controller.Controller) {
 	// 	log.Fatal(err)
 	// }
 	// fmt.Println("Deleted product", product)
-
 }
 
-func shopCart(c *controller.Controller) {
+func ShopCart(c *controller.Controller) {
+
 	// ==========Shop Cart====================================================================================================================================
 
 	// Add data to shop cart
-	// sh, e := c.AddShopCart(&models.AddShopCart{
-	// 	ProductId: "ec529cd6-dbb8-4982-a984-017b6a042378",
-	// 	UserId:    "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
-	// 	Count:     6,
-	// })
-	// if e != nil {
-	// 	log.Fatal(e)
-	// }
-	// fmt.Println("Shop cart added", sh)
+	sh, e := c.AddShopCart(&models.AddShopCart{
+		ProductId: "ec529cd6-dbb8-4982-a984-017b6a042378",
+		UserId:    "c6772cfd-f356-499d-a03b-75e76630b719",
+		Count:     6,
+	})
+	if e != nil {
+		log.Fatal(e)
+	}
+	fmt.Println("Shop cart added", sh)
 
-	// Remove shop cart
+	// // Remove shop cart
 	// p, e := c.RemoveShopCart(&models.RemoveShopCart{
 	// 	ProductId: "ec529cd6-dbb8-4982-a984-017b6a042378",
 	// 	UserId:    "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
@@ -166,7 +187,7 @@ func shopCart(c *controller.Controller) {
 	// }
 	// fmt.Println("Shop cart removed", p)
 
-	// get current user shopcarts
+	// // get current user shopcarts
 	// ps, e := c.GetUserShopCarts(&models.UserPrimaryKey{
 	// 	Id: "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
 	// })
@@ -174,16 +195,4 @@ func shopCart(c *controller.Controller) {
 	// 	log.Fatal(e)
 	// }
 	// fmt.Println("Shop carts", ps)
-
-	// Calculate total price in current user cart
-	total, e := c.CalcTotalPrice(models.UserPrimaryKey{
-		Id: "36aaeba2-68c7-4e41-b6fc-3278d709cac1",
-	}, models.Discount{
-		Status: "percent",
-		Amount: 9,
-	})
-	if e != nil {
-		log.Fatal(e)
-	}
-	fmt.Println("Total price:", total)
 }

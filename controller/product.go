@@ -1,6 +1,10 @@
 package controller
 
-import "app/models"
+import (
+	"app/models"
+	"app/pkg/utils"
+	"errors"
+)
 
 func (c *Controller) CreateProduct(req *models.CreateProduct) (id string, err error) {
 
@@ -23,6 +27,11 @@ func (c *Controller) GetListProducts(req *models.GetListProductRequest) (*models
 }
 
 func (c *Controller) GetProductByIdController(req *models.ProductPrimaryKey) (models.Product, error) {
+
+	if !utils.IsValidUUID(req.Id) {
+		return models.Product{}, errors.New("invalid uuid id")
+	}
+
 	product, err := c.store.Product().GetProductById(req)
 	if err != nil {
 		return models.Product{}, err

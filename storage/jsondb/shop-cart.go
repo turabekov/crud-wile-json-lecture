@@ -40,26 +40,17 @@ func (s *shopCartRepo) AddShopCart(req *models.AddShopCart) (models.ShopCart, er
 
 	// if userId and productId exist replace only count
 	newShopCart := models.ShopCart{}
-	boolVar := false
-	for i, v := range carts {
-		if v.UserId == req.UserId && v.ProductId == req.ProductId {
-			boolVar = true
-			carts[i].Count = req.Count
-			newShopCart = carts[i]
-		}
-	}
-	// if userId and productId don't exist add new cart
-	if !boolVar {
-		id := uuid.NewString()
 
-		newShopCart = models.ShopCart{
-			Id:        id,
-			ProductId: req.ProductId,
-			UserId:    req.UserId,
-			Count:     req.Count,
-		}
-		carts = append(carts, newShopCart)
+	id := uuid.NewString()
+
+	newShopCart = models.ShopCart{
+		Id:        id,
+		ProductId: req.ProductId,
+		UserId:    req.UserId,
+		Count:     req.Count,
+		Status:    false,
 	}
+	carts = append(carts, newShopCart)
 
 	// stringify struct to json
 	body, err := json.MarshalIndent(carts, "", "   ")
@@ -135,11 +126,55 @@ func (s *shopCartRepo) GetUserShopCarts(req *models.UserPrimaryKey) ([]models.Sh
 	userShopCarts := []models.ShopCart{}
 
 	for _, v := range carts {
-		if v.UserId == req.Id {
+		if v.UserId == req.Id && v.Status == false {
 			userShopCarts = append(userShopCarts, v)
 		}
 	}
 
 	return userShopCarts, nil
+}
 
+func (s *shopCartRepo) UpdateShopCart(cart models.ShopCart) (models.ShopCart, error) {
+	carts := []models.ShopCart{}
+
+	// Read data from file
+	data, err := ioutil.ReadFile(s.fileName)
+	if err != nil {
+		return models.ShopCart{}, err
+	}
+
+	// parse json data
+	err = json.Unmarshal(data, &carts)
+	if err != nil {
+		return models.ShopCart{}, err
+	}
+
+	updatedShopCart := models.ShopCart{}
+	for i, v := range carts {
+		if v.Id == cart.Id {
+			carts[i].Id = cart.Id
+			carts[i].ProductId = cart.ProductId
+			carts[i].UserId = cart.UserId
+			carts[i].Status = cart.Status
+
+			updatedShopCart = carts[i]
+		}
+	}
+
+	if len(updatedShopCart.Id) <= 0 {
+		return models.ShopCart{}, errors.New("shop-cart not found")
+	}
+
+	// stringify struct to json
+	body, err := json.MarshalIndent(carts, "", "   ")
+	if err != nil {
+		return models.ShopCart{}, err
+	}
+
+	err = ioutil.WriteFile(s.fileName, body, os.ModePerm)
+	if err != nil {
+		return models.ShopCart{}, err
+	}
+
+	return updatedShopCart, nil
 }

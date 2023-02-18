@@ -2,6 +2,7 @@ package controller
 
 import (
 	"app/models"
+	"errors"
 )
 
 func (c *Controller) CreateUser(req *models.CreateUser) (id string, err error) {
@@ -50,5 +51,51 @@ func (c *Controller) DeleteUserController(req *models.UserPrimaryKey) (models.Us
 	}
 
 	return user, nil
+}
 
+func (c *Controller) WithdrawUserBalance(id string, balance float64) error {
+
+	user, err := c.store.User().GetUserById(&models.UserPrimaryKey{Id: id})
+	if err != nil {
+		return err
+	}
+
+	if user.Balance-balance <= 0 {
+		return errors.New("not enough money")
+	}
+
+	user.Balance = user.Balance - balance
+
+	_, err = c.store.User().UpdateUser(&models.UpdateUser{
+		Id:      user.Id,
+		Name:    user.Name,
+		Surname: user.Surname,
+		Balance: user.Balance,
+	})
+
+	if err != nil {
+		return err
+	}
+
+	p, e := c.store.ShopCart().GetUserShopCarts(&models.UserPrimaryKey{
+		Id: user.Id,
+	})
+	if e != nil {
+		return e
+	}
+
+	for _, v := range p {
+		_, err := c.store.ShopCart().UpdateShopCart(models.ShopCart{
+			Id:        v.Id,
+			ProductId: v.ProductId,
+			UserId:    v.UserId,
+			Count:     v.Count,
+			Status:    true,
+		})
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

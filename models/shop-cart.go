@@ -8,6 +8,7 @@ type AddShopCart struct {
 	ProductId string `json:"product_id"`
 	UserId    string `json:"user_id"`
 	Count     int    `json:"count"`
+	Status    bool   `json:"status"`
 }
 
 type ShopCart struct {
@@ -15,6 +16,7 @@ type ShopCart struct {
 	ProductId string `json:"product_id"`
 	UserId    string `json:"user_id"`
 	Count     int    `json:"count"`
+	Status    bool   `json:"status"`
 }
 
 type RemoveShopCart struct {
@@ -27,17 +29,8 @@ type UserProductIds struct {
 	UserId    string `json:"user_id"`
 }
 
-type Discount struct {
-	Status string  `json:"status"`
-	Amount float64 `json:"amount"`
+type CalculateShop struct {
+	UserID         string `json:"user_id"`
+	Discount       int    `json:"discount"`
+	DiscountStatus string `json:"discount_status"`
 }
-
-// type GetListShopCartRequest struct {
-// 	Offset int `json:"offset"`
-// 	Limit  int `json:"limit"`
-// }
-
-// type GetListShopCartResponse struct {
-// 	Count     int        `json:"count"`
-// 	ShopCarts []ShopCart `json:"products"`
-// }

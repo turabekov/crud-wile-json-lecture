@@ -36,6 +36,7 @@ func (u *userRepo) Create(req *models.CreateUser) (id string, err error) {
 		Id:      id,
 		Name:    req.Name,
 		Surname: req.Surname,
+		Balance: req.Balance,
 	})
 
 	body, err := json.MarshalIndent(users, "", "   ")
@@ -127,6 +128,7 @@ func (u *userRepo) UpdateUser(req *models.UpdateUser) (models.User, error) {
 		if v.Id == req.Id {
 			users[i].Name = req.Name
 			users[i].Surname = req.Surname
+			users[i].Balance = req.Balance
 			updatedUser = users[i]
 		}
 	}
@@ -147,7 +149,6 @@ func (u *userRepo) UpdateUser(req *models.UpdateUser) (models.User, error) {
 	}
 
 	return updatedUser, nil
-
 }
 
 // Delete user by id
@@ -187,5 +188,4 @@ func (u *userRepo) DeleteUser(req *models.UserPrimaryKey) (models.User, error) {
 	}
 
 	return deletedUser, nil
-
 }
