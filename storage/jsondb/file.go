@@ -7,9 +7,10 @@ import (
 )
 
 type Store struct {
-	user     *userRepo
-	product  *productRepo
-	shopCart *shopCartRepo
+	user      *userRepo
+	product   *productRepo
+	shopCart  *shopCartRepo
+	komissiya *komissiyaRepo
 }
 
 func NewFileJson(cfg *config.Config) (storage.StorageI, error) {
@@ -29,16 +30,24 @@ func NewFileJson(cfg *config.Config) (storage.StorageI, error) {
 		return nil, err
 	}
 
+	komissiyaFile, err := os.Open(cfg.Path + cfg.KomissiyaFileName)
+	if err != nil {
+		return nil, err
+	}
+
 	return &Store{
-		user:     NewUserRepo(cfg.Path+cfg.UserFileName, userFile),
-		product:  NewProductRepo(cfg.Path+cfg.ProductFileName, productFile),
-		shopCart: NewShopCartRepo(cfg.Path+cfg.ShopCartFileName, shopCartFile),
+		user:      NewUserRepo(cfg.Path+cfg.UserFileName, userFile),
+		product:   NewProductRepo(cfg.Path+cfg.ProductFileName, productFile),
+		shopCart:  NewShopCartRepo(cfg.Path+cfg.ShopCartFileName, shopCartFile),
+		komissiya: NewKomissiyaRepo(cfg.Path+cfg.KomissiyaFileName, komissiyaFile),
 	}, nil
 }
 
 func (s *Store) CloseDB() {
 	s.user.file.Close()
 	s.product.file.Close()
+	s.shopCart.file.Close()
+	s.komissiya.file.Close()
 }
 
 func (s *Store) User() storage.UserRepoI {
@@ -51,4 +60,8 @@ func (s *Store) Product() storage.ProductRepoI {
 
 func (s *Store) ShopCart() storage.ShopCartRepoI {
 	return s.shopCart
+}
+
+func (s *Store) Komissiya() storage.KomissiyaRepoI {
+	return s.komissiya
 }

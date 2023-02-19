@@ -99,3 +99,59 @@ func (c *Controller) WithdrawUserBalance(id string, balance float64) error {
 
 	return nil
 }
+
+// Homework
+func (c *Controller) ExchangeMoney(req models.ReqExchangeMoney) error {
+	sender, err := c.store.User().GetUserById(&models.UserPrimaryKey{
+		Id: req.SenderId,
+	})
+	if err != nil {
+		return err
+	}
+	receiver, err := c.store.User().GetUserById(&models.UserPrimaryKey{
+		Id: req.ReceiverId,
+	})
+	if err != nil {
+		return err
+	}
+
+	komissiya, err := c.store.Komissiya().GetKomissiya()
+	if err != nil {
+		return err
+	}
+
+	moneyWithKomissiya := float64(req.Amount) + (float64(req.Amount) * komissiya.Amount / 100)
+
+	if sender.Balance > moneyWithKomissiya {
+		_, err = c.store.User().UpdateUser(&models.UpdateUser{
+			Id:      sender.Id,
+			Name:    sender.Name,
+			Surname: sender.Surname,
+			Balance: sender.Balance - moneyWithKomissiya,
+		})
+		if err != nil {
+			return err
+		}
+		_, err = c.store.User().UpdateUser(&models.UpdateUser{
+			Id:      receiver.Id,
+			Name:    receiver.Name,
+			Surname: receiver.Surname,
+			Balance: receiver.Balance + float64(req.Amount),
+		})
+		if err != nil {
+			return err
+		}
+		err := c.store.Komissiya().UpdateBalanceKomissiya(models.Komissiya{
+			Balance: komissiya.Balance + (float64(req.Amount) * komissiya.Amount / 100),
+			Amount:  komissiya.Amount,
+		})
+		if err != nil {
+			return nil
+		}
+
+	} else {
+		return errors.New("not enough money for sending")
+	}
+
+	return nil
+}

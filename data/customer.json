@@ -3,6 +3,12 @@
       "id": "c6772cfd-f356-499d-a03b-75e76630b719",
       "name": "Khumoyun",
       "surname": "Turabekov",
-      "balance": 2300
+      "balance": 30
+   },
+   {
+      "id": "30839a5f-b22d-4258-b64f-883220687dab",
+      "name": "Shaxzod",
+      "surname": "Tojiyev",
+      "balance": 78
    }
 ]

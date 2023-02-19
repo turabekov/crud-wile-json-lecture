@@ -24,42 +24,49 @@ func main() {
 	// Product(c)
 	// ShopCart(c)
 
-	userID := "c6772cfd-f356-499d-a03b-75e76630b719"
+	// userID := "c6772cfd-f356-499d-a03b-75e76630b719"
 
-	total, e := c.CalcTotalPrice(models.CalculateShop{
-		UserID:         userID,
-		Discount:       0,
-		DiscountStatus: "precent",
+	// total, e := c.CalcTotalPrice(models.CalculateShop{
+	// 	UserID:         userID,
+	// 	Discount:       0,
+	// 	DiscountStatus: "precent",
+	// })
+	// if e != nil {
+	// 	log.Fatal(e)
+	// }
+
+	// fmt.Println("Total price:", total)
+
+	// err = c.WithdrawUserBalance(userID, total)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	err = c.ExchangeMoney(models.ReqExchangeMoney{
+		SenderId:   "30839a5f-b22d-4258-b64f-883220687dab",
+		ReceiverId: "c6772cfd-f356-499d-a03b-75e76630b719",
+		Amount:     10,
 	})
-	if e != nil {
-		log.Fatal(e)
-	}
-
-	fmt.Println("Total price:", total)
-
-	err = c.WithdrawUserBalance(userID, total)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 }
 
 func User(c *controller.Controller) {
 
 	id, err := c.CreateUser(
 		&models.CreateUser{
-			Name:    "Khumoyun",
-			Surname: "Turaekov",
-			Balance: 500_000,
+			Name:    "Shaxzod",
+			Surname: "Tojiyev",
+			Balance: 200_000,
 		},
 	)
-
 	if err != nil {
 		log.Println("error while CreateUser:", err.Error())
 		return
 	}
-
 	fmt.Println(id)
-
 	// // GetList of user
 	// res, err := c.GetList(
 	// 	&models.GetListRequest{

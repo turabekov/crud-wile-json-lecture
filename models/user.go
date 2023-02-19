@@ -33,3 +33,9 @@ type GetListResponse struct {
 	Count int    `json:"count"`
 	Users []User `json:"users"`
 }
+
+type ReqExchangeMoney struct {
+	SenderId   string `json:"sender_id"`
+	ReceiverId string `json:"receiver_id"`
+	Amount     int    `json:"amount"`
+}

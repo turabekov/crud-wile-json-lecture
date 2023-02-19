@@ -3,9 +3,10 @@ package config
 type Config struct {
 	Path string
 
-	UserFileName     string
-	ProductFileName  string
-	ShopCartFileName string
+	UserFileName      string
+	ProductFileName   string
+	ShopCartFileName  string
+	KomissiyaFileName string
 }
 
 func Load() Config {
@@ -16,6 +17,7 @@ func Load() Config {
 	cfg.UserFileName = "/customer.json"
 	cfg.ProductFileName = "/products.json"
 	cfg.ShopCartFileName = "/shopCart.json"
+	cfg.KomissiyaFileName = "/komissiya.json"
 
 	return cfg
 }
