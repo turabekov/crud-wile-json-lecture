@@ -1,0 +1,26 @@
+[
+ {
+  "id": "eed2e676-1f17-429f-b75c-899eda296e65",
+  "name": "Elektronika",
+  "parent_id": "",
+  "sub_categories": null
+ },
+ {
+  "id": "6325b81f-9a2b-48ef-8d38-5cef642fed6b",
+  "name": "Smartfonlar va telefonlar",
+  "parent_id": "eed2e676-1f17-429f-b75c-899eda296e65",
+  "sub_categories": null
+ },
+ {
+  "id": "ed23ef53-8b27-44aa-8340-f9657f1c38dc",
+  "name": "Foods",
+  "parent_id": "",
+  "sub_categories": null
+ },
+ {
+  "id": "a941502e-12cb-4f29-b2ab-24f8427b0e2d",
+  "name": "Kompyuterlar",
+  "parent_id": "eed2e676-1f17-429f-b75c-899eda296e65",
+  "sub_categories": null
+ }
+]

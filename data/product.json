@@ -1,0 +1,50 @@
+[
+ {
+  "id": "31216468-60bd-4694-b5a8-6da80febfdf6",
+  "name": "Lenovo Ideapad-gaming",
+  "price": 10000000,
+  "category_id": "a941502e-12cb-4f29-b2ab-24f8427b0e2d"
+ },
+ {
+  "id": "49d74d31-0f2b-453c-a356-5ee753a35785",
+  "name": "HP Victus",
+  "price": 8000000,
+  "category_id": "a941502e-12cb-4f29-b2ab-24f8427b0e2d"
+ },
+ {
+  "id": "ce06cf2e-6577-46cb-96a3-1cea379bde4b",
+  "name": "Bread",
+  "price": 2800,
+  "category_id": "ed23ef53-8b27-44aa-8340-f9657f1c38dc"
+ },
+ {
+  "id": "4f148546-fa00-4f6c-a989-7f9fb90faf99",
+  "name": "Chips",
+  "price": 7000,
+  "category_id": "ed23ef53-8b27-44aa-8340-f9657f1c38dc"
+ },
+ {
+  "id": "d8824212-de5f-403c-8996-fbb6d40797cc",
+  "name": "Fanta",
+  "price": 8000,
+  "category_id": "ed23ef53-8b27-44aa-8340-f9657f1c38dc"
+ },
+ {
+  "id": "19ac1e0a-7067-4305-8e77-ae39627464eb",
+  "name": "Samsung A51 256GB",
+  "price": 5860000,
+  "category_id": "6325b81f-9a2b-48ef-8d38-5cef642fed6b"
+ },
+ {
+  "id": "38292285-4c27-497b-bc5f-dfe418a9f959",
+  "name": "Smartfon vivo V25 8/256 GB",
+  "price": 4860000,
+  "category_id": "6325b81f-9a2b-48ef-8d38-5cef642fed6b"
+ },
+ {
+  "id": "38292285-4c27-497b-bc5f-dfe418a9f959",
+  "name": "Redmi note 9  8/256 GB",
+  "price": 4860000,
+  "category_id": "6325b81f-9a2b-48ef-8d38-5cef642fed6b"
+ }
+]

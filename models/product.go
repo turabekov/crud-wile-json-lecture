@@ -4,29 +4,39 @@ type ProductPrimaryKey struct {
 	Id string `json:"id"`
 }
 
-type CreateProduct struct {
-	Name  string `json:"name"`
-	Price int    `json:"price"`
+type Product struct {
+	Id       string   `json:"id"`
+	Name     string   `json:"name"`
+	Price    float64  `json:"price"`
+	Category Category `json:"category"`
 }
 
-type Product struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Price int    `json:"price"`
+type ProductWithCategory struct {
+	Id         string  `json:"id"`
+	Name       string  `json:"name"`
+	Price      float64 `json:"price"`
+	CategoryID string  `json:"category_id"`
+}
+
+type CreateProduct struct {
+	Name       string  `json:"name"`
+	Price      float64 `json:"price"`
+	CategoryID string  `json:"category_id"`
 }
 
 type UpdateProduct struct {
-	Id    string `json:"id"`
-	Name  string `json:"name"`
-	Price int    `json:"price"`
+	Name       string  `json:"name"`
+	Price      float64 `json:"price"`
+	CategoryID string  `json:"category_id"`
 }
 
-type GetListProductRequest struct {
-	Offset int `json:"offset"`
-	Limit  int `json:"limit"`
+type ReqGetListProduct struct {
+	Offset     int    `json:"offset"`
+	Limit      int    `json:"limit"`
+	CategoryID string `json:"category_id"`
 }
 
-type GetListProductResponse struct {
-	Count    int       `json:"count"`
-	Products []Product `json:"products"`
+type GetListProduct struct {
+	Count    int                   `json:"count"`
+	Products []ProductWithCategory `json:"products"`
 }

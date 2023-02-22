@@ -1,61 +1,82 @@
 package controller
 
-import (
-	"app/models"
-	"app/pkg/utils"
-	"errors"
-)
+import "app/models"
 
-func (c *Controller) CreateProduct(req *models.CreateProduct) (id string, err error) {
-
-	id, err = c.store.Product().CreateProduct(req)
+func (c *Controller) CreateProduct(req *models.CreateProduct) (string, error) {
+	id, err := c.store.Product().Create(req)
 	if err != nil {
 		return "", err
 	}
-
 	return id, nil
 }
 
-func (c *Controller) GetListProducts(req *models.GetListProductRequest) (*models.GetListProductResponse, error) {
-
-	products, err := c.store.Product().GetListProduct(req)
+func (c *Controller) DeleteProduct(req *models.ProductPrimaryKey) error {
+	err := c.store.Product().Delete(req)
 	if err != nil {
-		return &models.GetListProductResponse{}, err
+		return err
 	}
-
-	return products, nil
+	return nil
 }
 
-func (c *Controller) GetProductByIdController(req *models.ProductPrimaryKey) (models.Product, error) {
-
-	if !utils.IsValidUUID(req.Id) {
-		return models.Product{}, errors.New("invalid uuid id")
+func (c *Controller) UpdateProduct(req *models.UpdateProduct, productId string) error {
+	err := c.store.Product().Update(req, productId)
+	if err != nil {
+		return err
 	}
+	return nil
+}
 
-	product, err := c.store.Product().GetProductById(req)
+func (c *Controller) GetByIdProduct(req *models.ProductPrimaryKey) (models.Product, error) {
+	product, err := c.store.Product().GetByID(req)
 	if err != nil {
 		return models.Product{}, err
 	}
 
-	return product, nil
-
-}
-
-func (c *Controller) UpdateProductController(req *models.UpdateProduct) (models.Product, error) {
-	product, err := c.store.Product().UpdateProduct(req)
+	category, err := c.store.Category().GetByID(&models.CategoryPrimaryKey{Id: product.CategoryID})
 	if err != nil {
 		return models.Product{}, err
 	}
 
-	return product, nil
-
+	return models.Product{
+		Id:       product.Id,
+		Name:     product.Name,
+		Price:    product.Price,
+		Category: category,
+	}, nil
 }
-func (c *Controller) DeleteProductController(req *models.ProductPrimaryKey) (models.Product, error) {
-	product, err := c.store.Product().DeleteProduct(req)
+
+func (c *Controller) GetAllProduct(req *models.ReqGetListProduct) ([]models.Product, error) {
+	products, err := c.store.Product().GetAll(req)
 	if err != nil {
-		return models.Product{}, err
+		return []models.Product{}, err
 	}
 
-	return product, nil
+	category, err := c.store.Category().GetByID(&models.CategoryPrimaryKey{
+		Id: req.CategoryID,
+	})
+	if err != nil {
+		return []models.Product{}, err
+	}
 
+	arr := []models.Product{}
+	for _, v := range products.Products {
+		if v.CategoryID == req.CategoryID {
+			arr = append(arr, models.Product{
+				Id:       v.Id,
+				Name:     v.Name,
+				Price:    v.Price,
+				Category: category,
+			})
+		}
+	}
+
+	if req.Limit+req.Offset > len(arr) {
+		if req.Offset > len(arr) {
+			return []models.Product{}, nil
+		}
+
+		return arr[req.Offset:], nil
+	}
+
+	return arr[req.Offset : req.Limit+req.Offset], nil
 }
